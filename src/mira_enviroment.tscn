@@ -35,26 +35,17 @@ texture = ExtResource("3_222xl")
 scale = Vector2(40, 1)
 target_position = Vector2(0, 36)
 
-[node name="Top" type="RayCast2D" parent="Mira"]
-scale = Vector2(40, 1)
-target_position = Vector2(0, -36)
-
 [node name="Right" type="RayCast2D" parent="Mira"]
 scale = Vector2(1, 40)
 target_position = Vector2(36, 0)
 
+[node name="Top" type="RayCast2D" parent="Mira"]
+scale = Vector2(40, 1)
+target_position = Vector2(0, -36)
+
 [node name="Left" type="RayCast2D" parent="Mira"]
 scale = Vector2(1, 40)
 target_position = Vector2(-36, 0)
-
-[node name="PanelContainer" type="PanelContainer" parent="Mira"]
-offset_left = -1.0
-offset_top = -155.0
-offset_right = 53.0
-offset_bottom = 1.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Mira/PanelContainer"]
-layout_mode = 2
 
 [node name="Borders" type="CharacterBody2D" parent="."]
 collision_layer = 3
@@ -76,5 +67,4 @@ shape = SubResource("RectangleShape2D_lwm1m")
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 process_callback = 0
-position_smoothing_enabled = true
 position_smoothing_speed = 50.0

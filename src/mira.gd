@@ -1,14 +1,20 @@
 extends RigidBody2D
 
 
-const DRAG_SPEED = 20
-const DRAG_LIMIT = 20
+signal menu_opened
+signal menu_closed
+
+const DRAG_SPEED = 15
+const DRAG_LIMIT = 30
 const MAX_SQUEEZE = 1
 const MIN_SQUEEZE = 0.65
 const MAX_SPEED = 5000
 
 var is_hold := false
+var is_menu_opened := false
 var relative_mouse_pos
+
+var is_pinned := false
 
 @onready var collision_shape: CollisionShape2D = get_node("CollisionShape2D")
 @onready var sprite: Sprite2D = get_node("Sprite2D")
@@ -18,19 +24,34 @@ var relative_mouse_pos
 @onready var left_raycast: RayCast2D = get_node("Left")
 
 
+func _integrate_forces(state):
+	gravity_scale = 0.0 if is_pinned else 1.0
+
 func _physics_process(delta):
 	move()
 	squeeze()
 
 func _input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
-		if event.is_pressed():
-			hold()
+		match event.button_index:
+			MouseButton.MOUSE_BUTTON_LEFT:
+				if event.is_pressed():
+					close_menu()
+					hold()
+			MouseButton.MOUSE_BUTTON_RIGHT:
+				if event.is_pressed():
+					is_menu_opened = not is_menu_opened
+					if is_menu_opened:
+						open_menu()
+					else:
+						close_menu()
 
 func _input(event):
 	if event is InputEventMouseButton:
-		if not event.is_pressed():
-			unhold()
+		match event.button_index:
+			MouseButton.MOUSE_BUTTON_LEFT:
+				if not event.is_pressed():
+					unhold()
 
 func hold():
 	gravity_scale = 0
@@ -51,6 +72,7 @@ func move():
 
 func squeeze():
 	if is_hold:
+		# PIN: Kinda bad code
 		if bottom_raycast.is_colliding():
 			var scale0 = 1 - float(relative_mouse_pos.y) / 32
 			sprite.scale.y = clamp(scale0, MIN_SQUEEZE, MAX_SQUEEZE)
@@ -68,16 +90,16 @@ func squeeze():
 			sprite.scale.x = clamp(scale0, MIN_SQUEEZE, MAX_SQUEEZE)
 			sprite.position.x = -(1 - sprite.scale.x) * 64 / 2
 
-func get_squeeze_direction():
-	pass
+func open_menu():
+	menu_opened.emit()
 
-func show_menu():
-	pass
-
-func hide_menu():
-	pass
+func close_menu():
+	menu_closed.emit()
 
 
+func change_pin():
+	is_pinned = not is_pinned
+	close_menu()
 
 func get_size():
 	return collision_shape.shape.size

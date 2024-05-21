@@ -8,7 +8,6 @@ extends CharacterBody2D
 @onready var bottom: CollisionShape2D = get_node("Bottom")
 
 func _ready():
-	print("Border")
 	left.position = Vector2(-100, Global.screen_size.y / 2)
 	left.shape.size = Vector2(200, Global.screen_size.y)
 	top.position = Vector2(Global.screen_size.x / 2, -100)

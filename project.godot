@@ -32,6 +32,7 @@ window/size/always_on_top=true
 window/size/transparent=true
 window/size/extend_to_title=true
 window/size/no_focus=true
+window/subwindows/embed_subwindows=false
 window/per_pixel_transparency/allowed=true
 
 [physics]
