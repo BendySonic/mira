@@ -1,0 +1,485 @@
+[gd_scene load_steps=19 format=3 uid="uid://bk2knv0tvlq83"]
+
+[ext_resource type="Script" path="res://src/mira/mira_enviroment.gd" id="1_qnpnw"]
+[ext_resource type="Script" path="res://src/mira/mira.gd" id="2_njtmv"]
+[ext_resource type="Texture2D" uid="uid://wofcfnqtrk0v" path="res://assets/body.png" id="3_o0doi"]
+[ext_resource type="Texture2D" uid="uid://c8g0ixt134mg" path="res://assets/normal_eye.png" id="4_n834v"]
+[ext_resource type="Script" path="res://src/mira/screen_borders.gd" id="4_obvdq"]
+[ext_resource type="Texture2D" uid="uid://cfxaoqylllt7g" path="res://assets/fun_eye.png" id="5_hgtjb"]
+[ext_resource type="Texture2D" uid="uid://pa15thebvspn" path="res://assets/question_eye.png" id="7_7shi4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hgmkn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qrt84"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rkmn8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lwm1m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oxj81"]
+size = Vector2(64, 64)
+
+[sub_resource type="Animation" id="Animation_38r24"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite/Eyes/RightEye:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [ExtResource("4_n834v")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/Eyes/RightEye:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(9, -2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/Eyes/LeftEye:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-11, -2)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite/Eyes/LeftEye:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [ExtResource("4_n834v")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite/Eyes/LeftEye:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite/Eyes/RightEye:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Sprite/Eyes/LeftEye:flip_h")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_cjjp1"]
+resource_name = "eyes_1"
+length = 8.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite/Eyes/RightEye:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5, 7.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [ExtResource("4_n834v"), ExtResource("5_hgtjb"), ExtResource("4_n834v")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/Eyes/RightEye:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6, 2, 2.5, 3.5, 4, 4.9, 5, 5.1, 6.2, 6.5, 7.6, 7.7, 7.8),
+"transitions": PackedFloat32Array(0.183011, 6.72717, 0.183011, 8, 0.258816, 1, 6.9644, 1, 1, 0.374117, 0.183011, 0.183011, 1, 0.183011),
+"update": 0,
+"values": [Vector2(9, -2), Vector2(12, 7), Vector2(12, 6.99948), Vector2(12, -10), Vector2(12, -10), Vector2(6, 0), Vector2(6, 0), Vector2(6.5, -6.5), Vector2(6, 0), Vector2(6, 0), Vector2(9, -2), Vector2(9, -2), Vector2(9, -6.5), Vector2(9, -2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/Eyes/LeftEye:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 19.6983),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite/Eyes/LeftEye:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6, 2, 2.5, 3.5, 4, 4.9, 5, 5.1, 6.2, 6.5, 7.6, 7.7, 7.8),
+"transitions": PackedFloat32Array(0.183011, 6.72717, 0.183011, 8, 0.258816, 1, 6.9644, 1, 1, 0.374117, 0.183011, 0.183011, 1, 0.183011),
+"update": 0,
+"values": [Vector2(-11, -2), Vector2(-8, 7), Vector2(-8, 6.99948), Vector2(-8, -10), Vector2(-8, -10), Vector2(-14, 0), Vector2(-14, 0), Vector2(-13.5, -6.5), Vector2(-14, 0), Vector2(-14, 0), Vector2(-11, -2), Vector2(-11, -2), Vector2(-11, -6.5), Vector2(-11, -2)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite/Eyes/LeftEye:texture")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 5, 7.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [ExtResource("4_n834v"), ExtResource("5_hgtjb"), ExtResource("4_n834v")]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite/Eyes/RightEye:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 19.6983),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Sprite:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 4.9, 5, 5.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, -5), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_vil0e"]
+resource_name = "eyes_2"
+length = 6.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite/Eyes/RightEye:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.7, 2, 5.5, 5.8),
+"transitions": PackedFloat32Array(0.101532, 0.116629, 1, 0.0669859, 0.210224),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(0.85, 0.85), Vector2(0.85, 0.85), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/Eyes/LeftEye:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 1.7, 2, 5.5, 5.8),
+"transitions": PackedFloat32Array(0.101532, 1, 0.116629, 0.189465, 0.0669859, 0.189465),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.8, 0.8), Vector2(0.8, 0.8), Vector2(1, 1), Vector2(1, 1), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/Eyes/LeftEye:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2.9, 3, 3.1, 5.5, 5.6, 5.7),
+"transitions": PackedFloat32Array(5.09823, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-11, -2), Vector2(-11, -2), Vector2(-11, -4), Vector2(-11, -2), Vector2(-11, -2), Vector2(-11, -4), Vector2(-11, -2)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite/Eyes/LeftEye:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 3, 5.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [ExtResource("4_n834v"), ExtResource("7_7shi4"), ExtResource("4_n834v")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite/Eyes/RightEye:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 2.9, 3, 3.1, 5.5, 5.6, 5.7),
+"transitions": PackedFloat32Array(5.09823, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(9, -2), Vector2(9, -2), Vector2(9, -4), Vector2(9, -2), Vector2(9, -2), Vector2(9, -4), Vector2(9, -2)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite/Eyes/LeftEye:flip_h")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 3, 5.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_s7psc"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 3.2), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.05, 0.9), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4wu8x"]
+resource_name = "reset"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite/Eyes/RightEye:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [ExtResource("4_n834v"), ExtResource("4_n834v")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/Eyes/RightEye:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(9, -2), Vector2(9, -2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/Eyes/LeftEye:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-11, -2), Vector2(-11, -2)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite/Eyes/LeftEye:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [ExtResource("4_n834v"), ExtResource("4_n834v")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite/Eyes/LeftEye:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite/Eyes/RightEye:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Sprite/Eyes/LeftEye:flip_h")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Sprite/Eyes:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y8ewh"]
+_data = {
+"RESET": SubResource("Animation_38r24"),
+"eyes_1": SubResource("Animation_cjjp1"),
+"eyes_2": SubResource("Animation_vil0e"),
+"idle": SubResource("Animation_s7psc"),
+"reset": SubResource("Animation_4wu8x")
+}
+
+[node name="MiraEnviroment" type="Node2D"]
+script = ExtResource("1_qnpnw")
+
+[node name="ScreenBorders" type="CharacterBody2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("4_obvdq")
+
+[node name="Left" type="CollisionShape2D" parent="ScreenBorders"]
+shape = SubResource("RectangleShape2D_hgmkn")
+
+[node name="Top" type="CollisionShape2D" parent="ScreenBorders"]
+shape = SubResource("RectangleShape2D_qrt84")
+
+[node name="Right" type="CollisionShape2D" parent="ScreenBorders"]
+shape = SubResource("RectangleShape2D_rkmn8")
+
+[node name="Bottom" type="CollisionShape2D" parent="ScreenBorders"]
+shape = SubResource("RectangleShape2D_lwm1m")
+
+[node name="Mira" type="RigidBody2D" parent="."]
+input_pickable = true
+lock_rotation = true
+script = ExtResource("2_njtmv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mira"]
+shape = SubResource("RectangleShape2D_oxj81")
+
+[node name="Bottom" type="RayCast2D" parent="Mira"]
+scale = Vector2(40, 1)
+target_position = Vector2(0, 36)
+
+[node name="Right" type="RayCast2D" parent="Mira"]
+scale = Vector2(1, 40)
+target_position = Vector2(36, 0)
+
+[node name="Top" type="RayCast2D" parent="Mira"]
+scale = Vector2(40, 1)
+target_position = Vector2(0, -36)
+
+[node name="Left" type="RayCast2D" parent="Mira"]
+scale = Vector2(1, 40)
+target_position = Vector2(-36, 0)
+
+[node name="Sprite" type="Node2D" parent="Mira"]
+position = Vector2(0, 2.90079)
+scale = Vector2(1.04532, 0.90935)
+
+[node name="Body" type="Sprite2D" parent="Mira/Sprite"]
+texture = ExtResource("3_o0doi")
+
+[node name="Eyes" type="Node2D" parent="Mira/Sprite"]
+
+[node name="LeftEye" type="Sprite2D" parent="Mira/Sprite/Eyes"]
+position = Vector2(-11, -2)
+texture = ExtResource("4_n834v")
+
+[node name="RightEye" type="Sprite2D" parent="Mira/Sprite/Eyes"]
+position = Vector2(9, -2)
+texture = ExtResource("4_n834v")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Mira"]
+libraries = {
+"": SubResource("AnimationLibrary_y8ewh")
+}
+
+[node name="AnimationTimer" type="Timer" parent="Mira"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+process_callback = 0
+position_smoothing_speed = 50.0
+
+[connection signal="animation_finished" from="Mira/AnimationPlayer" to="Mira" method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="Mira/AnimationTimer" to="Mira" method="_on_animation_timer_timeout"]
