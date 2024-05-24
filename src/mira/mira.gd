@@ -134,6 +134,7 @@ func play_animation():
 func _on_animation_timer_timeout():
 	var animation_index = str(randi_range(1, 2))
 	animation.play("eyes_" + animation_index)
+	animation_timer.stop()
 
 func stop_animation():
 	is_playing = false

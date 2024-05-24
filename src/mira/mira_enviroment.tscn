@@ -193,6 +193,18 @@ tracks/6/keys = {
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, -5), Vector2(0, 0)]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Sprite:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(-0.1, 0),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.04391, 0.912181), Vector2(1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_vil0e"]
 resource_name = "eyes_2"
@@ -453,8 +465,7 @@ scale = Vector2(1, 40)
 target_position = Vector2(-36, 0)
 
 [node name="Sprite" type="Node2D" parent="Mira"]
-position = Vector2(0, 2.90079)
-scale = Vector2(1.04532, 0.90935)
+scale = Vector2(1.04391, 0.912181)
 
 [node name="Body" type="Sprite2D" parent="Mira/Sprite"]
 texture = ExtResource("3_o0doi")

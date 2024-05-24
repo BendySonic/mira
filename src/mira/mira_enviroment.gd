@@ -36,10 +36,11 @@ func update_view():
 	get_window().position = new_window_pos
 
 
-# Menu
+
+#region Menu
 func on_mira_menu_opened():
 	menu = menu_scene.instantiate()
-	menu.position = mira.position + MENU_OFFSET
+	menu.position = mira.position - Vector2(menu.size) + Vector2(menu.size.x, 0)
 	menu.connect("activities_pressed", on_activities_pressed)
 	menu.connect("pin_pressed", on_menu_pin_pressed)
 	menu.connect("launcher_pressed", on_menu_launcher_pressed)
@@ -57,3 +58,4 @@ func on_menu_pin_pressed():
 func on_menu_launcher_pressed():
 	launcher = launcher_scene.instantiate()
 	add_child(launcher)
+#endregion

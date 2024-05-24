@@ -8,7 +8,7 @@ content_margin_top = 10.0
 content_margin_right = 5.0
 content_margin_bottom = 5.0
 bg_color = Color(0, 0, 0, 0.8)
-border_width_top = 5
+border_width_top = 7
 border_color = Color(0, 0.843137, 0.356863, 0.745098)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
@@ -21,7 +21,7 @@ bg_color = Color(0.152941, 0.152941, 0.152941, 0.682353)
 [node name="Menu" type="Window"]
 disable_3d = true
 transparent_bg = true
-size = Vector2i(64, 128)
+size = Vector2i(256, 192)
 borderless = true
 always_on_top = true
 transparent = true
@@ -29,29 +29,53 @@ unfocusable = true
 script = ExtResource("1_t3ccw")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(54, 128)
+custom_minimum_size = Vector2(256, 192)
 offset_right = 40.0
 offset_bottom = 40.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ckh1b")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
 layout_mode = 2
 
-[node name="Activities" type="Panel" parent="PanelContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.4
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="Activities" type="Panel" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_gtyn6")
 
-[node name="Pin" type="Panel" parent="PanelContainer/VBoxContainer"]
+[node name="Pin" type="Panel" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_gtyn6")
 
-[node name="Launcher" type="Panel" parent="PanelContainer/VBoxContainer"]
+[node name="Launcher" type="Panel" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_gtyn6")
 
-[connection signal="gui_input" from="PanelContainer/VBoxContainer/Activities" to="." method="_on_activities_gui_input"]
-[connection signal="gui_input" from="PanelContainer/VBoxContainer/Pin" to="." method="_on_pin_gui_input"]
-[connection signal="gui_input" from="PanelContainer/VBoxContainer/Launcher" to="." method="_on_launcher_gui_input"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Активности"
+
+[connection signal="gui_input" from="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Activities" to="." method="_on_activities_gui_input"]
+[connection signal="gui_input" from="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Pin" to="." method="_on_pin_gui_input"]
+[connection signal="gui_input" from="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Launcher" to="." method="_on_launcher_gui_input"]
