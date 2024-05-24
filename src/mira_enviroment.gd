@@ -4,6 +4,8 @@ const MENU_OFFSET = Vector2(10, -138)
 
 var menu_scene: PackedScene = preload("res://src/menu.tscn")
 var menu: Window
+var launcher_scene: PackedScene = preload("res://src/launcher.tscn")
+var launcher: Window
 
 @onready var mira: RigidBody2D = get_node("Mira")
 @onready var camera: Camera2D = get_node("Camera2D")
@@ -31,10 +33,15 @@ func on_mira_menu_opened():
 	menu = menu_scene.instantiate()
 	menu.position = mira.position + MENU_OFFSET
 	add_child(menu)
-	menu.connect("pin_pressed", on_pin_pressed)
+	menu.connect("pin_pressed", on_menu_pin_pressed)
+	menu.connect("launcher_pressed", on_menu_launcher_pressed)
 
 func on_mira_menu_closed():
 	remove_child(menu)
 
-func on_pin_pressed():
+func on_menu_pin_pressed():
 	mira.change_pin()
+
+func on_menu_launcher_pressed():
+	launcher = launcher_scene.instantiate()
+	add_child(launcher)

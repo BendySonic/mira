@@ -1,3 +1,47 @@
-[gd_scene format=3 uid="uid://cqt02i2hds0l7"]
+[gd_scene load_steps=4 format=3 uid="uid://cqt02i2hds0l7"]
+
+[ext_resource type="Script" path="res://src/launcher.gd" id="1_35s2f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hopwd"]
+content_margin_top = 30.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_hgguy"]
+font_size = 42
+font_color = Color(0, 0.741176, 0.341176, 1)
 
 [node name="Launcher" type="Window"]
+title = "Mira Launcher"
+initial_position = 1
+size = Vector2i(400, 400)
+script = ExtResource("1_35s2f")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_hopwd")
+
+[node name="Label" type="Label" parent="Control/PanelContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+text = "Mira"
+label_settings = SubResource("LabelSettings_hgguy")
+horizontal_alignment = 1
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]

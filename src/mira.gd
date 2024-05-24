@@ -25,7 +25,7 @@ var is_pinned := false
 
 
 func _integrate_forces(state):
-	gravity_scale = 0.0 if is_pinned else 1.0
+	gravity_scale = 0.0 if is_pinned or is_hold else 1.0
 
 func _physics_process(delta):
 	move()
@@ -54,11 +54,9 @@ func _input(event):
 					unhold()
 
 func hold():
-	gravity_scale = 0
 	is_hold = true
 
 func unhold():
-	gravity_scale = 1
 	is_hold = false
 
 func move():
