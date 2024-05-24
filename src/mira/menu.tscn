@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://uvp3hbeblp6i"]
+[gd_scene load_steps=6 format=3 uid="uid://uvp3hbeblp6i"]
 
 [ext_resource type="Script" path="res://src/mira/menu.gd" id="1_t3ccw"]
+[ext_resource type="Texture2D" uid="uid://doa4bw5xioan3" path="res://assets/pin_icon.png" id="2_i3o5s"]
+[ext_resource type="Texture2D" uid="uid://ckkibwef0bclq" path="res://assets/launcher_icon.png" id="3_2baeu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ckh1b"]
 content_margin_left = 5.0
@@ -16,7 +18,11 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gtyn6"]
-bg_color = Color(0.152941, 0.152941, 0.152941, 0.682353)
+bg_color = Color(0.266667, 0.266667, 0.266667, 0.682353)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="Menu" type="Window"]
 disable_3d = true
@@ -51,10 +57,18 @@ size_flags_horizontal = 3
 size_flags_vertical = 0
 
 [node name="Activities" type="Panel" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_gtyn6")
+
+[node name="ActivitiesButton" type="TextureButton" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Activities"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("2_i3o5s")
+stretch_mode = 3
 
 [node name="Pin" type="Panel" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(40, 40)
@@ -62,11 +76,25 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_gtyn6")
 
+[node name="PinButton" type="TextureButton" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Pin"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("2_i3o5s")
+stretch_mode = 3
+
 [node name="Launcher" type="Panel" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_gtyn6")
+
+[node name="LauncherButton" type="TextureButton" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Launcher"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("3_2baeu")
+stretch_mode = 3
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2
@@ -78,4 +106,6 @@ text = "Активности"
 
 [connection signal="gui_input" from="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Activities" to="." method="_on_activities_gui_input"]
 [connection signal="gui_input" from="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Pin" to="." method="_on_pin_gui_input"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Pin/PinButton" to="." method="_on_pin_button_pressed"]
 [connection signal="gui_input" from="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Launcher" to="." method="_on_launcher_gui_input"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Launcher/LauncherButton" to="." method="_on_launcher_button_pressed"]

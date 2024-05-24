@@ -1,7 +1,7 @@
 extends Node2D
 
 
-const MENU_OFFSET = Vector2(10, -138)
+const MENU_OFFSET = Vector2(0, -32)
 
 var menu_scene: PackedScene = preload("res://src/mira/menu.tscn")
 var menu: Window
@@ -40,7 +40,7 @@ func update_view():
 #region Menu
 func on_mira_menu_opened():
 	menu = menu_scene.instantiate()
-	menu.position = mira.position - Vector2(menu.size) + Vector2(menu.size.x, 0)
+	menu.position = mira.position - Vector2(menu.size) + Vector2(menu.size.x, 0) + MENU_OFFSET
 	menu.connect("activities_pressed", on_activities_pressed)
 	menu.connect("pin_pressed", on_menu_pin_pressed)
 	menu.connect("launcher_pressed", on_menu_launcher_pressed)
