@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6xjk2t6pvght"]
+
+[ext_resource type="Script" path="res://src/mira/emotion_manager.gd" id="1_8i5y0"]
+
+[node name="EmotionManager" type="Node"]
+script = ExtResource("1_8i5y0")
