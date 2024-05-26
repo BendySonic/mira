@@ -104,8 +104,27 @@ size_flags_horizontal = 3
 layout_mode = 2
 text = "Активности"
 
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+columns = 4
+
+[node name="DJ" type="Panel" parent="PanelContainer/HBoxContainer/VBoxContainer2/GridContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_gtyn6")
+
+[node name="DJButton" type="TextureButton" parent="PanelContainer/HBoxContainer/VBoxContainer2/GridContainer/DJ"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("2_i3o5s")
+ignore_texture_size = true
+stretch_mode = 3
+
 [connection signal="gui_input" from="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Activities" to="." method="_on_activities_gui_input"]
 [connection signal="gui_input" from="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Pin" to="." method="_on_pin_gui_input"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Pin/PinButton" to="." method="_on_pin_button_pressed"]
 [connection signal="gui_input" from="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Launcher" to="." method="_on_launcher_gui_input"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Launcher/LauncherButton" to="." method="_on_launcher_button_pressed"]
+[connection signal="gui_input" from="PanelContainer/HBoxContainer/VBoxContainer2/GridContainer/DJ" to="." method="_on_activities_gui_input"]

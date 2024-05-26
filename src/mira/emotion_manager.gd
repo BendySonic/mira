@@ -19,6 +19,8 @@ var fear: Emotion = Emotion.new(0.20)
 
 func feel(event: Event, importance: float):
 	match event:
+		Event.HAPPY:
+			pass
 		Event.SCARY:
 			fear.add(importance)
 			equal_subtract_emotions(sadness, anger, happiness, importance)

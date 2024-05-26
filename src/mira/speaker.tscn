@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1mntlto22u6n"]
+
+[ext_resource type="Texture2D" uid="uid://djpe47htdt3qm" path="res://assets/closed_eye.png" id="1_egcac"]
+
+[node name="Speaker" type="Window"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(128, 128)
+borderless = true
+always_on_top = true
+transparent = true
+unfocusable = true
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+texture = ExtResource("1_egcac")
+
+[node name="Camera2D" type="Camera2D" parent="Node2D"]

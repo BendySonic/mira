@@ -17,17 +17,31 @@ const MAX_SPEED = 5000
 
 const START_POSITION = Vector2(500, 500)
 
+const PET_ZONE = Rect2(Vector2(-32, -32), Vector2(64, 32))
+const PET_SPEED = 0.02
+const PET_MIN = 0.5
+
 # Menu
 var is_menu_opened := false
 var is_pinned := false
 
 # Hold
 var is_hold := false
-var relative_mouse_pos
+var relative_mouse_pos_0 := Vector2(0, 0)
+var relative_mouse_pos := Vector2(0, 0)
 
-# State
+# Sensor
 var is_on_floor := false
-var is_playing := false
+# 0.0-1.0
+var pet_indicator: float
+var is_pet := false
+var is_pet_anim_played := false
+
+var is_eyes_idle_anim_playing := false
+
+# Activities
+
+var is_DJ := false
 
 # Collisions
 @onready var collision_shape: CollisionShape2D = get_node("CollisionShape2D")
@@ -42,6 +56,7 @@ var is_playing := false
 @onready var eyes_animation: AnimationPlayer = get_node("EyesAnimationPlayer")
 @onready var body_animation: AnimationPlayer = get_node("BodyAnimationPlayer")
 @onready var idle_animation_timer: Timer = get_node("IdleAnimationTimer")
+@onready var pet_timer: Timer = get_node("PetTimer")
 
 #Emotions
 @onready var emotion_manager: EmotionManager = get_node("EmotionManager")
@@ -80,7 +95,7 @@ func _input(event):
 	if event is InputEventMouseButton:
 		match event.button_index:
 			MouseButton.MOUSE_BUTTON_LEFT:
-				if not event.is_pressed():
+				if not event.is_pressed() and is_hold:
 					unhold()
 
 
@@ -89,7 +104,14 @@ func _input(event):
 # Get additional information about environment
 func sensor(delta):
 	is_on_floor = bottom_raycast.is_colliding()
+	relative_mouse_pos_0 = relative_mouse_pos
 	relative_mouse_pos = DisplayServer.mouse_get_position() - Vector2i(position)
+	
+	if (
+			PET_ZONE.has_point(relative_mouse_pos)
+			and not (relative_mouse_pos - relative_mouse_pos_0).length() == 0
+	):
+		pet()
 
 # Reaction depending on environment
 func behavior(delta):
@@ -107,6 +129,7 @@ func behavior(delta):
 	if linear_velocity.length() > 4000:
 		emotion_manager.feel(emotion_manager.Event.SCARY, 0.001)
 
+# Move Mira durning hold
 func move(delta):
 	if is_hold:
 		if relative_mouse_pos.length() > DRAG_LIMIT:
@@ -114,9 +137,10 @@ func move(delta):
 		else:
 			linear_velocity = Vector2(0, 0)
 
+# Squeeze Mira next to the screen borders
 func squeeze():
 	if is_hold:
-		# TODO: Kinda bad code, fix this
+		# TODO: Kinda bad code, fix this pls
 		if bottom_raycast.is_colliding():
 			var scale0 = 1 - float(relative_mouse_pos.y) / 32
 			sprite.scale.y = clamp(scale0, MIN_SQUEEZE, MAX_SQUEEZE)
@@ -156,29 +180,37 @@ func unhold():
 func move_eyes(delta, position):
 	eyes.position = eyes.position.move_toward(position, delta * 40)
 
+# Special
 func on_mira_feared():
 	eyes_animation.play("eyes/feared_1")
-	is_playing = true
 
+# Idle
 func idle_animation():
-	if is_on_floor and not is_playing and not is_hold:
-		idle_animation_timer.wait_time = randi_range(3, 12)
-		idle_animation_timer.start()
-		is_playing = true
-		body_animation.play("body/idle")
-		eyes_animation.play("eyes/idle")
+	if is_on_floor and not is_hold:
+		if not is_eyes_idle_anim_playing:
+			idle_animation_timer.wait_time = randi_range(3, 12)
+			idle_animation_timer.start()
+			is_eyes_idle_anim_playing = true
+			body_animation.play("body/idle")
+			eyes_animation.play("eyes/idle")
+		if is_pet and not is_pet_anim_played:
+			body_animation.play("body/pet")
+			eyes_animation.play("eyes/pet")
+			is_eyes_idle_anim_playing = false
+			idle_animation_timer.stop()
+			is_pet_anim_played = true
 
-func _on_animation_timer_timeout():
+func _on_idle_animation_timer_timeout():
 	var animation_index = str(randi_range(1, 2))
-	is_playing = true
+	is_eyes_idle_anim_playing = true
 	eyes_animation.stop()
 	eyes_animation.play("eyes/eyes_" + animation_index)
 
 func _on_eyes_animation_player_animation_finished(anim_name):
-	is_playing = false
+	is_eyes_idle_anim_playing = false
 
 func stop_idle_animation():
-	is_playing = false
+	is_eyes_idle_anim_playing = false
 	idle_animation_timer.stop()
 	eyes_animation.stop()
 	body_animation.stop()
@@ -200,6 +232,21 @@ func close_menu():
 
 
 
+#region Pet
+func pet():
+	pet_indicator += PET_SPEED
+	pet_indicator = clamp(pet_indicator, 0.0, 1.0)
+	pet_timer.start()
+	if pet_indicator > PET_MIN:
+		is_pet = true
+
+func _on_pet_timer_timeout():
+	is_pet = false
+	is_pet_anim_played = false
+	pet_indicator = 0.0
+#endregion
+
+
 #region Public
 func change_pin():
 	is_pinned = not is_pinned
@@ -208,5 +255,3 @@ func change_pin():
 func get_size():
 	return collision_shape.shape.size
 #endregion
-
-
