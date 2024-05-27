@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://uvp3hbeblp6i"]
+[gd_scene load_steps=7 format=3 uid="uid://uvp3hbeblp6i"]
 
 [ext_resource type="Script" path="res://src/mira/menu.gd" id="1_t3ccw"]
 [ext_resource type="Texture2D" uid="uid://doa4bw5xioan3" path="res://assets/pin_icon.png" id="2_i3o5s"]
 [ext_resource type="Texture2D" uid="uid://ckkibwef0bclq" path="res://assets/launcher_icon.png" id="3_2baeu"]
+[ext_resource type="Texture2D" uid="uid://csbykmm3vtp5i" path="res://assets/headphones.png" id="4_6hdo7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ckh1b"]
 content_margin_left = 5.0
@@ -118,7 +119,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_gtyn6")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture_normal = ExtResource("2_i3o5s")
+texture_normal = ExtResource("4_6hdo7")
 ignore_texture_size = true
 stretch_mode = 3
 
@@ -128,3 +129,4 @@ stretch_mode = 3
 [connection signal="gui_input" from="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Launcher" to="." method="_on_launcher_gui_input"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Launcher/LauncherButton" to="." method="_on_launcher_button_pressed"]
 [connection signal="gui_input" from="PanelContainer/HBoxContainer/VBoxContainer2/GridContainer/DJ" to="." method="_on_activities_gui_input"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer2/GridContainer/DJ/DJButton" to="." method="_on_dj_button_pressed"]

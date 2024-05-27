@@ -6,6 +6,10 @@ extends RigidBody2D
 signal menu_opened
 signal menu_closed
 
+signal music_on
+
+enum State {FLY, IDLE, HOLD, PET, DJ}
+
 const DRAG_SPEED = 15
 const DRAG_LIMIT = 30
 
@@ -19,29 +23,20 @@ const START_POSITION = Vector2(500, 500)
 
 const PET_ZONE = Rect2(Vector2(-32, -32), Vector2(64, 32))
 const PET_SPEED = 0.02
-const PET_MIN = 0.5
+const PET_MIN = 0.8
+
+# State machine
+var state: State = State.FLY
 
 # Menu
 var is_menu_opened := false
 var is_pinned := false
 
-# Hold
-var is_hold := false
+# Sensor
 var relative_mouse_pos_0 := Vector2(0, 0)
 var relative_mouse_pos := Vector2(0, 0)
-
-# Sensor
 var is_on_floor := false
-# 0.0-1.0
-var pet_indicator: float
-var is_pet := false
-var is_pet_anim_played := false
-
-var is_eyes_idle_anim_playing := false
-
-# Activities
-
-var is_DJ := false
+var pet_indicator: float # 0.0-1.0
 
 # Collisions
 @onready var collision_shape: CollisionShape2D = get_node("CollisionShape2D")
@@ -57,6 +52,7 @@ var is_DJ := false
 @onready var body_animation: AnimationPlayer = get_node("BodyAnimationPlayer")
 @onready var idle_animation_timer: Timer = get_node("IdleAnimationTimer")
 @onready var pet_timer: Timer = get_node("PetTimer")
+@onready var eyes_move_timer: Timer = get_node("EyesMoveTimer")
 
 #Emotions
 @onready var emotion_manager: EmotionManager = get_node("EmotionManager")
@@ -68,14 +64,13 @@ func _ready():
 	position = START_POSITION
 
 func _integrate_forces(_state):
-	gravity_scale = 0.0 if is_pinned or is_hold else 1.0
+	gravity_scale = 0.0 if is_pinned or is_state(State.HOLD) else 1.0
 
 func _physics_process(delta):
 	sensor(delta)
 	behavior(delta)
 	move(delta)
 	squeeze()
-	idle_animation()
 
 func _input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:
@@ -85,7 +80,7 @@ func _input_event(_viewport, event, _shape_idx):
 					close_menu()
 					hold()
 			MouseButton.MOUSE_BUTTON_RIGHT:
-				if event.is_pressed():
+				if event.is_pressed() and is_state(State.IDLE):
 					if is_menu_opened:
 						close_menu()
 					else:
@@ -95,8 +90,41 @@ func _input(event):
 	if event is InputEventMouseButton:
 		match event.button_index:
 			MouseButton.MOUSE_BUTTON_LEFT:
-				if not event.is_pressed() and is_hold:
+				if not event.is_pressed() and is_state(State.HOLD):
 					unhold()
+
+
+
+#region State
+func set_state(state: State):
+	if self.state == state:
+		return
+	
+	self.state = state
+	if is_state(State.IDLE):
+		move_eyes_queue(0.05, Vector2(0, 0))
+		idle_animation_timer.start()
+		eyes_move_timer.start()
+		body_animation.play("body/idle_1")
+		eyes_animation.play("eyes/idle_1")
+	else:
+		idle_animation_timer.stop()
+		if is_state(State.HOLD):
+			eyes_animation.play("eyes/reset")
+			body_animation.play("body/reset")
+		elif is_state(State.PET):
+			body_animation.play("body/pet")
+			eyes_animation.play("eyes/pet")
+		elif is_state(State.DJ):
+			body_animation.play("body/DJ")
+			eyes_animation.play("eyes/DJ")
+			music_on.emit()
+			await eyes_animation.animation_finished
+			body_animation.play("body/DJ_dance_1")
+
+func is_state(state: State):
+	return self.state == state
+#endregion
 
 
 
@@ -107,6 +135,9 @@ func sensor(delta):
 	relative_mouse_pos_0 = relative_mouse_pos
 	relative_mouse_pos = DisplayServer.mouse_get_position() - Vector2i(position)
 	
+	if is_on_floor and is_state(State.FLY):
+		set_state(State.IDLE)
+	
 	if (
 			PET_ZONE.has_point(relative_mouse_pos)
 			and not (relative_mouse_pos - relative_mouse_pos_0).length() == 0
@@ -116,14 +147,11 @@ func sensor(delta):
 # Reaction depending on environment
 func behavior(delta):
 	# Movement and position
-	if is_hold:
+	if is_state(State.HOLD):
 		if linear_velocity.length() > 0:
 			move_eyes(delta, Vector2(relative_mouse_pos).normalized() * 6.5)
 	elif linear_velocity.length() > MIN_SPEED:
 		move_eyes(delta, linear_velocity.normalized() * 6.5)
-	
-	if is_on_floor:
-		move_eyes(delta, Vector2(0, 0))
 	
 	# Shaking
 	if linear_velocity.length() > 4000:
@@ -131,7 +159,7 @@ func behavior(delta):
 
 # Move Mira durning hold
 func move(delta):
-	if is_hold:
+	if is_state(State.HOLD):
 		if relative_mouse_pos.length() > DRAG_LIMIT:
 			linear_velocity = (Vector2(relative_mouse_pos) * DRAG_SPEED).limit_length(MAX_SPEED)
 		else:
@@ -139,7 +167,7 @@ func move(delta):
 
 # Squeeze Mira next to the screen borders
 func squeeze():
-	if is_hold:
+	if is_state(State.HOLD):
 		# TODO: Kinda bad code, fix this pls
 		if bottom_raycast.is_colliding():
 			var scale0 = 1 - float(relative_mouse_pos.y) / 32
@@ -164,56 +192,66 @@ func unsqueeze():
 
 
 
-#region Hold
-func hold():
-	stop_idle_animation()
-	is_hold = true
-
-func unhold():
-	unsqueeze()
-	is_hold = false
-#endregion
-
-
-
 #region Animation
+# Move eyes by process
 func move_eyes(delta, position):
 	eyes.position = eyes.position.move_toward(position, delta * 40)
+
+# Move eyes by "one signal"
+func move_eyes_queue(delta, position):
+	for i in range(0, 120):
+		move_eyes(delta, position)
+		if eyes.position == position:
+			break
+		await get_tree().physics_frame
+
+func _on_eyes_move_timer_timeout():
+	move_eyes_queue(0.05, Vector2(randi_range(-5, 5), randi_range(-5, 5)))
+	eyes_move_timer.start()
 
 # Special
 func on_mira_feared():
 	eyes_animation.play("eyes/feared_1")
 
-# Idle
-func idle_animation():
-	if is_on_floor and not is_hold:
-		if not is_eyes_idle_anim_playing:
-			idle_animation_timer.wait_time = randi_range(3, 12)
-			idle_animation_timer.start()
-			is_eyes_idle_anim_playing = true
-			body_animation.play("body/idle")
-			eyes_animation.play("eyes/idle")
-		if is_pet and not is_pet_anim_played:
-			body_animation.play("body/pet")
-			eyes_animation.play("eyes/pet")
-			is_eyes_idle_anim_playing = false
-			idle_animation_timer.stop()
-			is_pet_anim_played = true
+func _on_eyes_animation_player_animation_finished(anim_name):
+	if is_state(State.IDLE):
+		eyes_animation.play("eyes/idle_1")
+		idle_animation_timer.wait_time = randi_range(4, 7)
+		idle_animation_timer.start()
 
 func _on_idle_animation_timer_timeout():
-	var animation_index = str(randi_range(1, 2))
-	is_eyes_idle_anim_playing = true
-	eyes_animation.stop()
-	eyes_animation.play("eyes/eyes_" + animation_index)
+	var animation_index = str(randi_range(2, 6))
+	eyes_animation.play("eyes/idle_" + animation_index)
+#endregion
 
-func _on_eyes_animation_player_animation_finished(anim_name):
-	is_eyes_idle_anim_playing = false
 
-func stop_idle_animation():
-	is_eyes_idle_anim_playing = false
-	idle_animation_timer.stop()
-	eyes_animation.stop()
-	body_animation.stop()
+
+#region Hold
+func hold():
+	if not is_state(State.DJ):
+		set_state(State.HOLD)
+
+func unhold():
+	unsqueeze()
+	set_state(State.FLY)
+#endregion
+
+
+
+#region Pet
+func pet():
+	if is_state(State.IDLE):
+		pet_indicator += PET_SPEED
+		pet_indicator = clamp(pet_indicator, 0.0, 1.0)
+		pet_timer.start()
+		if pet_indicator > PET_MIN:
+			set_state(State.PET)
+
+func _on_pet_timer_timeout():
+	if is_state(State.PET) or is_state(State.IDLE):
+		pet_indicator = 0.0
+		set_state(State.IDLE)
+		
 #endregion
 
 
@@ -232,22 +270,10 @@ func close_menu():
 
 
 
-#region Pet
-func pet():
-	pet_indicator += PET_SPEED
-	pet_indicator = clamp(pet_indicator, 0.0, 1.0)
-	pet_timer.start()
-	if pet_indicator > PET_MIN:
-		is_pet = true
-
-func _on_pet_timer_timeout():
-	is_pet = false
-	is_pet_anim_played = false
-	pet_indicator = 0.0
-#endregion
-
-
 #region Public
+func turn_on_dj():
+	set_state(State.DJ)
+
 func change_pin():
 	is_pinned = not is_pinned
 	close_menu()
@@ -255,3 +281,6 @@ func change_pin():
 func get_size():
 	return collision_shape.shape.size
 #endregion
+
+
+

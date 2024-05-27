@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bk2knv0tvlq83"]
+[gd_scene load_steps=21 format=3 uid="uid://bk2knv0tvlq83"]
 
 [ext_resource type="Script" path="res://src/mira/mira_enviroment.gd" id="1_qnpnw"]
 [ext_resource type="Script" path="res://src/mira/mira.gd" id="2_njtmv"]
@@ -9,6 +9,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://ctxbxdxw71apx" path="res://assets/animations/eyes.res" id="7_8cpwl"]
 [ext_resource type="Texture2D" uid="uid://vg84reyv0jtk" path="res://assets/speaker.png" id="7_hm0rr"]
 [ext_resource type="AnimationLibrary" uid="uid://dee7k855i73or" path="res://assets/animations/body.res" id="8_fefsy"]
+[ext_resource type="Texture2D" uid="uid://gqmvbdpo7nu2" path="res://assets/bit.png" id="8_tdcv6"]
 [ext_resource type="AudioStream" uid="uid://3i187om7fuio" path="res://assets/music/PSY - GANGNAM STYLE(강남스타일) M_V (128 kbps).mp3" id="9_8iy8d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hgmkn"]
@@ -72,6 +73,102 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(-11, -2)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite/Eyes/LeftEye:texture")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_n834v")]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite/Eyes/RightEye:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Sprite/Eyes/LeftEye:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Sprite/Eyes/RightEye:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Sprite/Eyes/RightEye:texture")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_n834v")]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Sprite/Eyes/LeftEye:flip_v")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Sprite/Eyes/RightEye:flip_v")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Sprite/Eyes/LeftEye:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1mkqe"]
 _data = {
@@ -119,19 +216,19 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("DJ:position")
+tracks/3/path = NodePath("Speaker/Bit1:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 10)]
+"values": [0.0]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("DJ:rotation")
+tracks/4/path = NodePath("Speaker/Bit2:rotation")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -143,14 +240,62 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("DJ:scale")
+tracks/5/path = NodePath("Speaker:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1e-05, 1e-05)]
+"values": [Vector2(0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Speaker:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Speaker:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Speaker/Bit2:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Speaker/Bit1:scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4q5bq"]
@@ -214,47 +359,64 @@ texture = ExtResource("3_o0doi")
 [node name="LeftEye" type="Sprite2D" parent="Mira/Sprite/Eyes"]
 position = Vector2(-11, -2)
 texture = ExtResource("4_n834v")
+flip_h = true
 
 [node name="RightEye" type="Sprite2D" parent="Mira/Sprite/Eyes"]
 position = Vector2(9, -2)
 texture = ExtResource("4_n834v")
 
-[node name="DJ" type="Sprite2D" parent="Mira"]
-position = Vector2(0, 10)
+[node name="Speaker" type="Node2D" parent="Mira"]
 scale = Vector2(1e-05, 1e-05)
+
+[node name="Speaker" type="Sprite2D" parent="Mira/Speaker"]
 texture = ExtResource("7_hm0rr")
+
+[node name="Bit1" type="Sprite2D" parent="Mira/Speaker"]
+position = Vector2(-55, 0)
+texture = ExtResource("8_tdcv6")
+
+[node name="Bit2" type="Sprite2D" parent="Mira/Speaker"]
+position = Vector2(55, 0)
+texture = ExtResource("8_tdcv6")
+flip_h = true
 
 [node name="EyesAnimationPlayer" type="AnimationPlayer" parent="Mira"]
 libraries = {
 "": SubResource("AnimationLibrary_1mkqe"),
 "eyes": ExtResource("7_8cpwl")
 }
-blend_times = [&"eyes/pet", &"eyes/pet", 0.5, &"eyes/pet", &"eyes/idle", 0.5, &"eyes/pet", &"eyes/feared_1", 0.5, &"eyes/pet", &"eyes/eyes_2", 0.5, &"eyes/pet", &"eyes/reset", 0.5, &"eyes/pet", &"eyes/eyes_1", 0.5]
+blend_times = [&"RESET", &"RESET", 0.5, &"RESET", &"eyes/feared_1", 0.5, &"RESET", &"eyes/reset", 0.5, &"RESET", &"eyes/pet", 0.5, &"RESET", &"eyes/idle_4", 0.5, &"RESET", &"eyes/idle_1", 0.5, &"RESET", &"eyes/idle_3", 0.5, &"eyes/reset", &"RESET", 0.5, &"eyes/reset", &"eyes/feared_1", 0.5, &"eyes/reset", &"eyes/reset", 0.5, &"eyes/reset", &"eyes/pet", 0.5, &"eyes/reset", &"eyes/idle_4", 0.5, &"eyes/reset", &"eyes/idle_1", 0.5, &"eyes/reset", &"eyes/idle_3", 0.5, &"eyes/pet", &"eyes/feared_1", 0.5, &"eyes/pet", &"eyes/reset", 0.5, &"eyes/pet", &"eyes/pet", 0.5, &"eyes/pet", &"eyes/idle_4", 0.5, &"eyes/pet", &"eyes/idle_1", 0.5, &"eyes/pet", &"eyes/idle_3", 0.5]
 
 [node name="BodyAnimationPlayer" type="AnimationPlayer" parent="Mira"]
 libraries = {
 "": SubResource("AnimationLibrary_4q5bq"),
 "body": ExtResource("8_fefsy")
 }
-blend_times = [&"body/idle", &"body/idle", 0.5, &"body/idle", &"body/pet", 0.5, &"body/idle", &"body/reset", 0.5, &"body/pet", &"body/idle", 1.0, &"body/pet", &"body/pet", 1.0, &"body/pet", &"body/RESET", 0.5, &"body/pet", &"body/reset", 0.5]
+blend_times = [&"RESET", &"RESET", 0.5, &"RESET", &"body/DJ", 0.5, &"RESET", &"body/reset", 0.5, &"RESET", &"body/pet", 0.5, &"RESET", &"body/idle_1", 0.5, &"body/reset", &"RESET", 0.5, &"body/reset", &"body/DJ", 0.5, &"body/reset", &"body/reset", 0.5, &"body/reset", &"body/pet", 0.5, &"body/reset", &"body/idle_1", 0.5, &"body/pet", &"body/reset", 0.5, &"body/pet", &"body/pet", 1.0, &"body/pet", &"body/idle_1", 1.0, &"body/idle_1", &"body/reset", 0.5, &"body/idle_1", &"body/pet", 0.5, &"body/idle_1", &"body/idle_1", 0.5]
 
 [node name="IdleAnimationTimer" type="Timer" parent="Mira"]
+wait_time = 4.0
 one_shot = true
 
 [node name="PetTimer" type="Timer" parent="Mira"]
 wait_time = 0.5
 one_shot = true
 
-[node name="Camera2D" type="Camera2D" parent="."]
-anchor_mode = 0
-process_callback = 0
-position_smoothing_speed = 50.0
+[node name="EyesMoveTimer" type="Timer" parent="Mira"]
+wait_time = 2.0
+one_shot = true
 
 [node name="Music" type="Node" parent="."]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Music"]
 stream = ExtResource("9_8iy8d")
 
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+process_callback = 0
+position_smoothing_speed = 50.0
+
 [connection signal="animation_finished" from="Mira/EyesAnimationPlayer" to="Mira" method="_on_eyes_animation_player_animation_finished"]
 [connection signal="timeout" from="Mira/IdleAnimationTimer" to="Mira" method="_on_idle_animation_timer_timeout"]
 [connection signal="timeout" from="Mira/PetTimer" to="Mira" method="_on_pet_timer_timeout"]
+[connection signal="timeout" from="Mira/EyesMoveTimer" to="Mira" method="_on_eyes_move_timer_timeout"]
